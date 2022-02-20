@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <string>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ class HuffmanTree
 			}
 
 		}
-
+		
 		HuffmanNode* sae(HuffmanNode *p) { return p->getLeft(); };
 
 		HuffmanNode* sad(HuffmanNode *p) { return p->getRight(); };
@@ -111,6 +112,27 @@ class HuffmanTree
 				encodedText = encodedText + charMap[c];
 			}
 			return encodedText;
+		}
+
+		string decode(string enc_text){
+			string decodedtext="";
+			HuffmanNode* current = root;
+			for(char c : enc_text){
+				if(c == '0'){
+					current=current->left;
+					if(current->left == NULL && current->right == NULL){
+						decodedtext = decodedtext + current->character;
+						current=root;
+					}
+				}else{
+					current=current->right;
+					if(current->left == NULL && current->right == NULL){
+						decodedtext = decodedtext + current->character;
+						current=root;
+					}
+				}
+			}
+			return decodedtext;
 		}
 };
 

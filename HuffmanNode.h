@@ -1,5 +1,6 @@
 #ifndef HUFFMANNODE_H_INCLUDED
 #define HUFFMANNODE_H_INCLUDED
+
 class HuffmanNode
 {
   	public:
@@ -15,7 +16,7 @@ class HuffmanNode
 
 		HuffmanNode(HuffmanNode* a, HuffmanNode* b){
 			freq = a->freq + b->freq;
-			character = NULL;
+			character = '\0';
 			if(a->freq <= b->freq){
 				left = a;
 				right = b;

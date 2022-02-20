@@ -1,7 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <iostream>    
+#include <iostream>   
+#include <string> 
 #include <fstream>  
 #include <ctime> 
 #include <chrono>  
@@ -18,7 +19,6 @@ struct Review
     char upvotes[10];
     char app_version[10];
     char posted_date[25];
-    //static int comparisons;
 };
 
 void acessaRegistro(int i) {
@@ -60,6 +60,7 @@ Review* importReviews(int N) {
         int cursor = random * sizeof(Review);
         file.seekg(cursor, ios::beg);
         file.read(reinterpret_cast<char*>(&regs[i]), sizeof(Review));
+        cout << " (1) " << regs[i].review_text << endl;
     }
     file.close();
     return regs;
