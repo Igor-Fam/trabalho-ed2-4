@@ -130,6 +130,7 @@ void analise(){
     med = med + auxanalise(10);
     med = med + auxanalise(100);
     med = med + auxanalise(1000);
+    med = med/3;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);
     fileout << "Media final: " << med*100 << "%" << endl;
     fileout.close();
