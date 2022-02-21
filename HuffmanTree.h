@@ -25,18 +25,6 @@ class HuffmanTree
 			}
 
 		}
-		
-		HuffmanNode* sae(HuffmanNode *p) { return p->getLeft(); };
-
-		HuffmanNode* sad(HuffmanNode *p) { return p->getRight(); };
-
-		void auxPrint(HuffmanNode *r){
-			if(r!=NULL){
-				cout << r->getFreq() << " ";
-				auxPrint(sae(r));
-				auxPrint(sad(r));
-			}
-		}
 
 	public:
 	    HuffmanTree(){
@@ -61,38 +49,6 @@ class HuffmanTree
 			}
 			else {
 				return root->getFreq();
-			}
-		}
-
-		bool vazia(){
-			return root == NULL;
-		}
-
-		void print(){
-			cout << "Pre-Ordem: ";
-			auxPrint(root);
-			cout << endl;
-		}
-
-		/* void merge(HuffmanTree *a, HuffmanTree *b){
-			HuffmanNode *r = new HuffmanNode(a->root, b->root);
-			root = r;
-		} */
-
-		void printLevel(int k){
-			cout << "Nos do nivel " << k << ": ";
-			auxPrintLevel(root, 0, k);
-			cout << endl;
-		}
-
-		void auxPrintLevel(HuffmanNode *p, int atual, int k){
-			if(p != NULL){
-				if(atual == k)
-					cout << p->getFreq() << " ";
-				else {
-					auxPrintLevel(p->getLeft(), atual+1, k);
-					auxPrintLevel(p->getRight(), atual+1, k);
-				}
 			}
 		}
 
