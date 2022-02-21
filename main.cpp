@@ -146,6 +146,7 @@ void analise(){
 
 int main(int argc, char *argv[])
 {
+    path = argv[1];
     ifstream check;
     check.open("tiktok_app_reviews.bin");
     if (check.is_open()) {
@@ -189,6 +190,8 @@ int main(int argc, char *argv[])
             break;
         case 3:
             analise();
+            break;
+        case 4:
             break;
         default:
             cout << "Opcao invalida" << endl;
