@@ -8,6 +8,7 @@
 
 using namespace std;
 
+//funcao para construir a arvore e definir os codigos utilizados para comprimir a mensagem
 HuffmanTree* buildtree(string text){
     unordered_map<char, int> freqMap;
     for(char c : text){
@@ -55,6 +56,7 @@ HuffmanTree* buildtree(string text){
     return treeMap.begin()->first;
 }
 
+//constroi o texto baseado em um numero N de reviews_texts aleatorios
 string buildtext(int N){
     ifstream file;
     string text="";
@@ -77,6 +79,7 @@ string buildtext(int N){
     return text;
 }
 
+//comprime um texto (N registros) baseado no codigo gerado
 HuffmanTree* comprimir(int N){
     string text = buildtext(N);
     HuffmanTree *tree = buildtree(text);
@@ -88,6 +91,7 @@ HuffmanTree* comprimir(int N){
     return tree;
 }
 
+//descomprime o texto do arquivo "reviewsComp.bin" baseado na arvore gerada
 float* descomprimir(HuffmanTree *a){
     ifstream file("reviewsComp.bin", ifstream::binary);
     string text;
@@ -103,6 +107,7 @@ float* descomprimir(HuffmanTree *a){
     return est;
 }
 
+//realiza as compressoes e descompressoes M=3 vezes e salva a taxa de comparacao
 float auxanalise(int N){
     float taxa_de_comp, med=0;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);
@@ -119,22 +124,25 @@ float auxanalise(int N){
     return med/3;
 }
 
+//realiza as analises para os valores pre-determinados
 void analise(){
     ofstream file("saida.txt");
     file.close();
     float med=0;
-    /* auxanalise(10000);
-    auxanalise(100000);
-    auxanalise(1000000); */
+    med = med + auxanalise(10000);
+    med = med + auxanalise(100000);
+    med = med + auxanalise(1000000);
 
-    med = med + auxanalise(10);
+    /* med = med + auxanalise(10);
     med = med + auxanalise(100);
-    med = med + auxanalise(1000);
+    med = med + auxanalise(1000); */
+
     med = med/3;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);
     fileout << "Media final: " << med*100 << "%" << endl;
     fileout.close();
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -172,7 +180,7 @@ int main(int argc, char *argv[])
         switch(aux0)
         {
         case 1:
-            cout << "Quantas Reviews você desja comprimir?" << endl;
+            cout << "Quantas Reviews voce desja comprimir?" << endl;
             cin >> aux1;
             a=comprimir(aux1);
             break;
