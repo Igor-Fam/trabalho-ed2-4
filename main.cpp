@@ -2,11 +2,16 @@
 #include <fstream>
 #include <chrono>
 #include <random>
+#include <cstring>
 
 #include "main.h"
 #include "HuffmanTree.h"
+#include "ShellSort.h"
+#include "fileManager.h"
 
 using namespace std;
+
+string path;
 
 //funcao para construir a arvore e definir os codigos utilizados para comprimir a mensagem
 HuffmanTree* buildtree(string text){
@@ -73,6 +78,7 @@ string buildtext(int N){
         file.seekg(random * sizeof(Review), ios::beg);
         file.read(reinterpret_cast<char*>(reg), sizeof(Review));
         text = text + reg->review_text;
+        cout << reg->review_text << endl;
     }
     delete reg;
     file.close();
@@ -129,13 +135,13 @@ void analise(){
     ofstream file("saida.txt");
     file.close();
     float med=0;
-    med = med + auxanalise(10000);
+    /* med = med + auxanalise(10000);
     med = med + auxanalise(100000);
-    med = med + auxanalise(1000000);
+    med = med + auxanalise(1000000); */
 
-    /* med = med + auxanalise(10);
+    med = med + auxanalise(10);
     med = med + auxanalise(100);
-    med = med + auxanalise(1000); */
+    med = med + auxanalise(1000);
 
     med = med/3;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);
@@ -143,9 +149,12 @@ void analise(){
     fileout.close();
 }
 
-
 int main(int argc, char *argv[])
 {
+    Review* arr = importReviews(8);
+    int N = 8;
+    shellSort(arr, N);
+    exit(0);
     path = argv[1];
     ifstream check;
     check.open("tiktok_app_reviews.bin");
@@ -154,7 +163,7 @@ int main(int argc, char *argv[])
         check.close();
     }
     else {
-        cout << "Erro: arquivo binario não encontrado.";
+        cout << "Erro: arquivo binario nao encontrado.";
         processamento();
     }
 

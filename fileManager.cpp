@@ -1,25 +1,13 @@
-#ifndef MAIN_H
-#define MAIN_H
-
 #include <iostream>   
 #include <string> 
+#include <cstring>
 #include <fstream>  
 #include <ctime> 
 #include <chrono>  
+#include "fileManager.h"
 using namespace std;
 
 #pragma warning(disable : 4996)
-
-string path;
-
-struct Review
-{
-    char review_id[100];
-    char review_text[2000];
-    char upvotes[10];
-    char app_version[10];
-    char posted_date[25];
-};
 
 void acessaRegistro(int i) {
     cout << i << ". " << endl;
@@ -60,7 +48,7 @@ Review* importReviews(int N) {
         int cursor = random * sizeof(Review);
         file.seekg(cursor, ios::beg);
         file.read(reinterpret_cast<char*>(&regs[i]), sizeof(Review));
-        cout << " (1) " << regs[i].review_text << endl;
+        //cout << " (" << file.tellg() << ") " << regs[i].review_text << endl;
     }
     file.close();
     return regs;
@@ -69,7 +57,9 @@ Review* importReviews(int N) {
 void processamento()
 {
     cout << "Lendo registros. Por favor, aguarde." << endl;
-    std::ifstream ip(path + "tiktok_app_reviews.csv", std::ifstream::binary);
+    path += "/tiktok_app_reviews.csv";
+    cout << "a: " << path;
+    std::ifstream ip(path, std::ifstream::binary);
     fstream op;
     op.open("tiktok_app_reviews.bin", ios::out | ios::binary);
     string aux;
@@ -189,4 +179,4 @@ void processamento()
     return;
 }
 
-#endif
+
