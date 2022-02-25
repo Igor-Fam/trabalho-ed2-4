@@ -1,5 +1,5 @@
-OBJS	= ShellSort.o main.o fileManager.o
-SOURCE	= ShellSort.cpp main.cpp fileManager.cpp
+OBJS	= ShellSort.o main.o fileManager.o HuffmanNode.o HuffmanTree.o
+SOURCE	= ShellSort.cpp main.cpp fileManager.cpp HuffmanNode.cpp HuffmanTree.cpp
 HEADER	= main.h HuffmanNode.h HuffmanTree.h
 OUT	= main
 CC	 = g++
@@ -17,6 +17,12 @@ main.o: main.cpp
 
 fileManager.o: fileManager.cpp
 	$(CC) $(FLAGS) fileManager.cpp -std=c++14
+
+HuffmanNode.o: HuffmanNode.cpp
+	$(CC) $(FLAGS) HuffmanNode.cpp -std=c++14
+
+HuffmanTree.o: HuffmanTree.cpp
+	$(CC) $(FLAGS) HuffmanTree.cpp -std=c++14
 
 
 clean:

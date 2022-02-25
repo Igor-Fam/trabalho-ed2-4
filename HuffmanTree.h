@@ -16,80 +16,26 @@ class HuffmanTree
 
 		unordered_map<char, string> charMap;
 
-		void auxMap(HuffmanNode* current, string code){
-			if(current->left == NULL && current->right == NULL){
-				charMap[current->character] = code;
-			} else {
-				auxMap(current->left, code + "0");
-				auxMap(current->right, code + "1");
-			}
-
-		}
+		void auxMap(HuffmanNode* current, string code);
 
 	public:
-	    HuffmanTree(){
-			root = NULL;
-		}
+	    HuffmanTree();
 
-		HuffmanTree(HuffmanTree* a, HuffmanTree* b)
-		{
-			root = new HuffmanNode(a->root, b->root);
-		}
+		HuffmanTree(HuffmanTree* a, HuffmanTree* b);
 
-		HuffmanTree(char c, int f){
-			root = new HuffmanNode(c, f);
-		}
+		HuffmanTree(char c, int f);
 
-		~HuffmanTree(){}
+		~HuffmanTree();
 
-		int getRootFreq(){
-			if(root == NULL){
-				cout << "Arvora vazia!" << endl;
-				exit(1);
-			}
-			else {
-				return root->getFreq();
-			}
-		}
+		int getRootFreq();
 
-		void map(){
-			auxMap(root, "");
-		}
+		void map();
 
-		void printMap(){
-			for(auto k : charMap){
-				cout << k.first << " => " << k.second << endl;
-			}
-		}
+		void printMap();
 
-		string encode(string text){
-			string encodedText;
-			for(char c : text){
-				encodedText = encodedText + charMap[c];
-			}
-			return encodedText;
-		}
+		string encode(string text);
 
-		string decode(string enc_text){
-			string decodedtext="";
-			HuffmanNode* current = root;
-			for(char c : enc_text){
-				if(c == '0'){
-					current=current->left;
-					if(current->left == NULL && current->right == NULL){
-						decodedtext = decodedtext + current->character;
-						current=root;
-					}
-				}else{
-					current=current->right;
-					if(current->left == NULL && current->right == NULL){
-						decodedtext = decodedtext + current->character;
-						current=root;
-					}
-				}
-			}
-			return decodedtext;
-		}
+		string decode(string enc_text);
 };
 
 #endif

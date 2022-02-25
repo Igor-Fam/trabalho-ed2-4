@@ -5,36 +5,21 @@ class HuffmanNode
 {
   	public:
 		friend class HuffmanTree;
-		HuffmanNode(){}
+		HuffmanNode();
 
-		HuffmanNode(char c, int f){
-			character = c;
-			freq = f;
-			left = NULL;
-			right = NULL;
-		}
+		HuffmanNode(char c, int f);
 
-		HuffmanNode(HuffmanNode* a, HuffmanNode* b){
-			freq = a->freq + b->freq;
-			character = '\0';
-			if(a->freq <= b->freq){
-				left = a;
-				right = b;
-			} else {
-				left = b;
-				right = a;
-			}
-		}
+		HuffmanNode(HuffmanNode* a, HuffmanNode* b);
 
-		~HuffmanNode(){}
+		~HuffmanNode();
 
-		HuffmanNode* getLeft(){ return left; }
+		HuffmanNode* getLeft();
 
-		char getChar(){ return character; }
+		char getChar();
 
-		int getFreq(){ return freq; }
+		int getFreq();
 
-		HuffmanNode* getRight(){ return right; }
+		HuffmanNode* getRight();
 
 	private:
 

@@ -4,7 +4,6 @@
 #include <random>
 #include <cstring>
 
-#include "main.h"
 #include "HuffmanTree.h"
 #include "ShellSort.h"
 #include "fileManager.h"
@@ -151,10 +150,10 @@ void analise(){
 
 int main(int argc, char *argv[])
 {
-    Review* arr = importReviews(8);
+    /* Review* arr = importReviews(8);
     int N = 8;
     shellSort(arr, N);
-    exit(0);
+    exit(0); */
     path = argv[1];
     ifstream check;
     check.open("tiktok_app_reviews.bin");
