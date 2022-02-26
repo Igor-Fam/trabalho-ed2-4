@@ -1,5 +1,5 @@
-OBJS	= ShellSort.o main.o fileManager.o HuffmanNode.o HuffmanTree.o
-SOURCE	= ShellSort.cpp main.cpp fileManager.cpp HuffmanNode.cpp HuffmanTree.cpp
+OBJS	= ShellSort.o main.o fileManager.o HuffmanNode.o HuffmanTree.o HuffmanCompression.o BalancedStructures.o BNode.o BTree.o VPNode.o VPTree.o
+SOURCE	= ShellSort.cpp main.cpp fileManager.cpp HuffmanNode.cpp HuffmanTree.cpp HuffmanCompression.cpp BalancedStructures.cpp BNode.cpp BTree.cpp VPNode.cpp VPTree.cpp
 HEADER	= main.h HuffmanNode.h HuffmanTree.h
 OUT	= main
 CC	 = g++
@@ -23,6 +23,24 @@ HuffmanNode.o: HuffmanNode.cpp
 
 HuffmanTree.o: HuffmanTree.cpp
 	$(CC) $(FLAGS) HuffmanTree.cpp -std=c++14
+
+HuffmanCompression.o: HuffmanCompression.cpp
+	$(CC) $(FLAGS) HuffmanCompression.cpp -std=c++14
+
+BalancedStructures.o: BalancedStructures.cpp
+	$(CC) $(FLAGS) BalancedStructures.cpp -std=c++14
+
+BNode.o: BNode.cpp
+	$(CC) $(FLAGS) BNode.cpp -std=c++14
+
+BTree.o: BTree.cpp
+	$(CC) $(FLAGS) BTree.cpp -std=c++14
+
+VPNode.o: VPNode.cpp
+	$(CC) $(FLAGS) VPNode.cpp -std=c++14
+
+VPTree.o: VPTree.cpp
+	$(CC) $(FLAGS) VPTree.cpp -std=c++14
 
 
 clean:
