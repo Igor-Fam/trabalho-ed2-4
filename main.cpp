@@ -84,12 +84,64 @@ string buildtext(int N){
     return text;
 }
 
+////////////////////////////////////////////////////////////////////////////
+
+string convert(string text){
+    unsigned int nstring;
+    int i;
+    string text_c = "";
+    nstring = text.length()/8;
+    text_c = text_c + to_string(nstring);
+    for(i=0;i<nstring;i++){
+        text_c = text_c + binario_decimal(text.substr(i*8,8));
+    }
+    text_c = text_c + text.substr(i*8);
+    return text_c;
+}
+
+char binario_decimal(string binario)
+{
+    unsigned long long decimal=0;
+    char aux;
+    reverse(binario.begin(),binario.end());
+    int tam = binario.size();
+    for(int i=0; i< tam; i++)
+        if(binario[i] == '1')
+        {
+            decimal += pow(2,i);
+        }
+
+    aux = decimal;
+    return aux;
+}
+
+
+string decimal_binario(int decimal){
+    vector<int> binario;
+    string btext;
+    while (decimal>0){
+        binario.push_back(decimal % 2);
+        decimal = decimal/2;
+    }
+    while(binario.size()<8){
+        binario.push_back(0);
+    }
+    for(int i = binario.size()-1; i >=0; i--){
+        btext = btext + to_string(binario.at(i));
+    }
+    return btext;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
 //comprime um texto (N registros) baseado no codigo gerado
 HuffmanTree* comprimir(int N){
     string text = buildtext(N);
     HuffmanTree *tree = buildtree(text);
     tree->map();
     text = tree->encode(text);
+    string text_c = convert(text);
     ofstream file("reviewsComp.bin", ios::out | ios::binary);
     file << text;
     file.close();
@@ -99,10 +151,28 @@ HuffmanTree* comprimir(int N){
 //descomprime o texto do arquivo "reviewsComp.bin" baseado na arvore gerada
 float* descomprimir(HuffmanTree *a){
     ifstream file("reviewsComp.bin", ifstream::binary);
-    string text;
-    float *est= new float[2];
-    file >> text;
+    string text_c="";
+    string text="";
+    int n;
+    string aux;
+    while(getline(file, aux)){
+        text_c = text_c + aux + '\n';
+    }
+    text_c.erase(text_c.end()-1);
+    char nstring = text_c[0];
+    text_c = text_c.substr(1);
+    int max = nstring - '0';
+    int cont=0;
+    for(unsigned char c : text_c){
+        if(cont<max){
+            n = c;
+            text = text + decimal_binario(n);
+            cont++;
+        }
+    }
+    text = text + text_c.substr(max);
     file.close();
+    float *est= new float[2];
     est[1] = text.size()/8.0;
     text = a->decode(text);
     est[0] = text.size();
