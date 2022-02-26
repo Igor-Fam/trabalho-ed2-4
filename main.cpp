@@ -2,7 +2,12 @@
 #include <fstream>
 #include <chrono>
 #include <random>
+#include <string>
 #include <cstring>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
 
 #include "HuffmanTree.h"
 #include "ShellSort.h"
@@ -11,6 +16,8 @@
 using namespace std;
 
 string path;
+
+char binario_decimal(string binario);
 
 //funcao para construir a arvore e definir os codigos utilizados para comprimir a mensagem
 HuffmanTree* buildtree(string text){
@@ -77,7 +84,6 @@ string buildtext(int N){
         file.seekg(random * sizeof(Review), ios::beg);
         file.read(reinterpret_cast<char*>(reg), sizeof(Review));
         text = text + reg->review_text;
-        cout << reg->review_text << endl;
     }
     delete reg;
     file.close();
@@ -91,7 +97,7 @@ string convert(string text){
     int i;
     string text_c = "";
     nstring = text.length()/8;
-    text_c = text_c + to_string(nstring);
+    text_c = text_c + to_string(nstring) + '\n';
     for(i=0;i<nstring;i++){
         text_c = text_c + binario_decimal(text.substr(i*8,8));
     }
@@ -141,7 +147,7 @@ HuffmanTree* comprimir(int N){
     HuffmanTree *tree = buildtree(text);
     tree->map();
     text = tree->encode(text);
-    string text_c = convert(text);
+    text = convert(text);
     ofstream file("reviewsComp.bin", ios::out | ios::binary);
     file << text;
     file.close();
@@ -155,13 +161,14 @@ float* descomprimir(HuffmanTree *a){
     string text="";
     int n;
     string aux;
+    string nstring;
+    getline(file,nstring);
+    int max = stoi(nstring);
     while(getline(file, aux)){
         text_c = text_c + aux + '\n';
     }
+    file.close();
     text_c.erase(text_c.end()-1);
-    char nstring = text_c[0];
-    text_c = text_c.substr(1);
-    int max = nstring - '0';
     int cont=0;
     for(unsigned char c : text_c){
         if(cont<max){
@@ -171,9 +178,8 @@ float* descomprimir(HuffmanTree *a){
         }
     }
     text = text + text_c.substr(max);
-    file.close();
     float *est= new float[2];
-    est[1] = text.size()/8.0;
+    est[1] = text.size()/7.98;
     text = a->decode(text);
     est[0] = text.size();
     ofstream sfile("reviewsOrig.bin", ios::binary);
@@ -204,13 +210,13 @@ void analise(){
     ofstream file("saida.txt");
     file.close();
     float med=0;
-    /* med = med + auxanalise(10000);
+    med = med + auxanalise(10000);
     med = med + auxanalise(100000);
-    med = med + auxanalise(1000000); */
+    med = med + auxanalise(1000000);
 
-    med = med + auxanalise(10);
+    /* med = med + auxanalise(10);
     med = med + auxanalise(100);
-    med = med + auxanalise(1000);
+    med = med + auxanalise(1000); */
 
     med = med/3;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);
