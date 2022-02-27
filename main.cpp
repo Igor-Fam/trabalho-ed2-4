@@ -12,6 +12,10 @@
 #include "HuffmanTree.h"
 #include "ShellSort.h"
 #include "fileManager.h"
+#include "QuickSort.h"
+#include "HeapSort.h"
+
+
 
 using namespace std;
 
@@ -210,13 +214,13 @@ void analise(){
     ofstream file("saida.txt");
     file.close();
     float med=0;
-    med = med + auxanalise(10000);
+    /* med = med + auxanalise(10000);
     med = med + auxanalise(100000);
-    med = med + auxanalise(1000000);
+    med = med + auxanalise(1000000); */
 
-    /* med = med + auxanalise(10);
+    med = med + auxanalise(10);
     med = med + auxanalise(100);
-    med = med + auxanalise(1000); */
+    med = med + auxanalise(1000);
 
     med = med/3;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);
@@ -224,12 +228,8 @@ void analise(){
     fileout.close();
 }
 
-int main(int argc, char *argv[])
+/* int main(int argc, char *argv[])
 {
-    /* Review* arr = importReviews(8);
-    int N = 8;
-    shellSort(arr, N);
-    exit(0); */
     path = argv[1];
     ifstream check;
     check.open("tiktok_app_reviews.bin");
@@ -282,6 +282,72 @@ int main(int argc, char *argv[])
         }
         cout<< endl;
     }
+
+    return 0;
+} */
+
+void analiseQuickSort(){
+    int n[5] = {10000, 50000, 100000, 500000, 1000000};
+    //int n[5] = {10, 50, 100, 500, 1000};
+    int i,j,k;
+    int *arr;
+    for(i=0; i<5; i++){
+        cout << "i: " << i << endl;
+        Review *regs = new Review[n[i]];
+        for(j=0; j<3; j++){
+            cout << "j: " << j << endl;
+            regs = importReviews(n[i]);
+            arr = new int[n[i]];
+            for(k=0;k<n[i];k++){
+                arr[k] = stoi(regs[k].upvotes);
+            }
+            StartQuicksort(arr,n[i],j);
+            cout << "end" << endl;
+        }
+        delete [] regs;
+    }
+}
+
+void analiseHeapSort(){
+    int n[5] = {10000, 50000, 100000, 500000, 1000000};
+    int i,j,k;
+    int *arr;
+    for(i=0; i<5; i++){
+        cout << "i: " << n[i] << endl;
+        Review *regs = new Review[n[i]];
+        for(j=0; j<3; j++){
+            cout << "j: " << j << endl;
+            regs = importReviews(n[i]);
+            arr = new int[n[i]];
+            for(k=0;k<n[i];k++){
+                arr[k] = stoi(regs[k].upvotes);
+            }
+            StartHeapsort(arr,n[i],j);
+            delete [] arr;
+        }
+        delete [] regs;
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    path = argv[1];
+    //analiseQuickSort();
+    //analiseHeapSort();
+    
+    
+    /* int n = 500000;
+    int i;
+    int *arr;
+    Review *regs = new Review[n];
+    regs = importReviews(n);
+    arr = new int[n];
+    for(i=0;i<n;i++){
+        arr[i] = stoi(regs[i].upvotes);
+    }
+    StartQuicksort(arr,n,0);
+    delete [] arr;
+    delete [] regs; */
 
     return 0;
 }

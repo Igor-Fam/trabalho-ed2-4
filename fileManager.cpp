@@ -40,7 +40,7 @@ Review* importReviews(int N) {
     file.seekg(0, ios::end);
     int max = (file.tellg() / sizeof(Review)) - 1;
     // aloca um numero N de ponteiros de Review para os registros
-    Review* regs = new Review[N];
+    Review *regs = new Review[N];
     srand(time(0));
     for (int i = 0; i < N; i++) {
         // registros aleatorios
@@ -49,6 +49,10 @@ Review* importReviews(int N) {
         file.seekg(cursor, ios::beg);
         file.read(reinterpret_cast<char*>(&regs[i]), sizeof(Review));
         //cout << " (" << file.tellg() << ") " << regs[i].review_text << endl;
+        if((int)file.tellg() == -1){
+            file.close();
+            file.open("tiktok_app_reviews.bin");
+        }
     }
     file.close();
     return regs;
