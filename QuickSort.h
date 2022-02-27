@@ -9,24 +9,9 @@
 
 using namespace std;
 
-int media_3(int *upvts, int i, int f){
-    int m = (i+f)/2;
-    if(upvts[i] > upvts[f]){
-        swap(upvts[i], upvts[f]);
-    }
-    if(upvts[m] > upvts[f]){
-        swap(upvts[m], upvts[f]);
-    }
-    if(upvts[i] > upvts[m]){
-        swap(upvts[i], upvts[m]);
-    }
-    swap(upvts[m], upvts[f]);
-    return upvts[f];
-}
-
 int partquick(int upvts[], int c, int n,resultados *resultQ)
 {
-    int pivot = media_3(upvts,c,n);
+    int pivot = (n-c)/2;
     int count = 0;
     for (int i = c + 1; i <= n; i++) {
         if (upvts[i] <= pivot){

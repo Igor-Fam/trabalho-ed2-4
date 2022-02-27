@@ -14,6 +14,7 @@
 #include "BalancedStructures.h"
 #include "QuickSort.h"
 #include "HeapSort.h"
+#include "Sorting.h"
 
 using namespace std;
 
@@ -44,7 +45,24 @@ int main(int argc, char *argv[])
         cin >> option;
         switch(option){
             case 1:
-                break;
+                cout<< "Escolha qual algoritmo de ordenacao deseja executar: " << endl;
+                cout << "1. QuickSort" << endl;
+                cout << "2. HeapSort" << endl;
+                cout << "3. ShellSort" << endl;
+                int op;
+                cin >> op;
+                switch(op){
+                    case 1:
+                        analiseQuickSort();
+                        break;
+                    case 2:
+                        analiseHeapSort();
+                        break;
+                    case 3:
+                        analiseShellSort();
+                        break;
+                }
+                            break;
             case 2: 
                 BalancedStructuresInterface();
                 break;
@@ -62,79 +80,3 @@ int main(int argc, char *argv[])
 
     return 0;
 } 
-
-void analiseQuickSort(){
-    int n[5] = {10000, 50000, 100000, 500000, 1000000};
-    //int n[5] = {10, 50, 100, 500, 1000};
-    int i,j,k;
-    int *arr;
-    for(i=0; i<5; i++){
-        Review *regs = new Review[n[i]];
-        for(j=0; j<3; j++){
-            regs = importReviews(n[i]);
-            arr = new int[n[i]];
-            for(k=0;k<n[i];k++){
-                arr[k] = stoi(regs[k].upvotes);
-            }
-            StartQuicksort(arr,n[i],j);
-        }
-        delete [] regs;
-    }
-}
-
-void analiseHeapSort(){
-    int n[5] = {10000, 50000, 100000, 500000, 1000000};
-    int i,j,k;
-    int *arr;
-    for(i=0; i<5; i++){
-        Review *regs = new Review[n[i]];
-        for(j=0; j<3; j++){
-            regs = importReviews(n[i]);
-            arr = new int[n[i]];
-            for(k=0;k<n[i];k++){
-                arr[k] = stoi(regs[k].upvotes);
-            }
-            StartHeapsort(arr,n[i],j);
-            delete [] arr;
-        }
-        delete [] regs;
-    }
-}
-
-void analiseShellSort(){
-    int n[5] = {10000, 50000, 100000, 500000, 1000000};
-    int i,j;
-    for(i=0;i<5;i++){
-        Review *regs = new Review[n[i]];
-        for(j=0;j<3;j++){
-            regs = importReviews(n[i]);
-            shellSort(regs, n[i]);
-        }
-        delete [] regs;
-    }
-}
-
-int main(int argc, char *argv[])
-{
-    path = argv[1];
-
-    cout << "----------" << endl;
-    cout<< "Escolha qual analise de ordenacao: " << endl;
-    cout << "(1) Analise QuickSort" << endl;
-    cout << "(2) Analise HeapSort" << endl;
-    cout << "(3) Analise ShellSort" << endl;
-    int option;
-    cin >> option;
-    switch(option){
-        case 1:
-            analiseQuickSort();
-            break;
-        case 2:
-            analiseHeapSort();
-            break;
-        case 3:
-            analiseShellSort();
-            break;
-    }
-    return 0;
-}
