@@ -10,7 +10,7 @@
 using namespace std;
 
 
-void heapify(int *upvts, int n, int i,resultados *resultH)
+void max_heapify(int *upvts, int n, int i,resultados *resultH)
 {
     int m = i;
     int left = 2 * i + 1;
@@ -25,19 +25,23 @@ void heapify(int *upvts, int n, int i,resultados *resultH)
     if (m != i) {
         swap(upvts[i], upvts[m]);
         resultH->addmov();
-        heapify(upvts, n, m,resultH);
+        max_heapify(upvts, n, m,resultH);
     }
+}
+
+void build_heapify(int *upvts, int n, resultados *resultH){
+    for (int i = n / 2 - 1; i >= 0; i--)
+        max_heapify(upvts, n, i,resultH);
+  
 }
 
 void heapSort(int *upvts, int n, resultados *resultH)
 {
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(upvts, n, i,resultH);
-  
+    build_heapify(upvts,n,resultH);
     for (int i = n - 1; i >= 0; i--) {
         swap(upvts[0], upvts[i]);
         resultH->addmov();
-        heapify(upvts, i, 0,resultH);
+        max_heapify(upvts, i, 0,resultH);
     }
 }
 
