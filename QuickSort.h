@@ -61,6 +61,7 @@ void StartQuicksort(int *upvts,int r){
   auto f = chrono::high_resolution_clock::now();
   auto total = chrono::duration_cast<chrono::milliseconds>(f-c);
   float tempo = total.count();
+  resultQ->addtipo("QuickSort");
   resultQ->addtempo(tempo);
   resultQ->salvar();
   delete resultQ;

@@ -42,7 +42,6 @@ void heapSort(int *upvts, int n, resultados *resultH)
 }
 
 void StartHeapsort(int *upvts, int n){
-  string tipo="Heap";
   auto c = chrono::high_resolution_clock::now();
   resultados *resultH = new resultados;
   resultH->setresult(n);
@@ -51,7 +50,7 @@ void StartHeapsort(int *upvts, int n){
   auto total = chrono::duration_cast<chrono::microseconds>(f-c);
   float tempo = total.count();
   resultH->addtempo(tempo);
-  resultH->addtipo(tipo);
+  resultH->addtipo("HeapSort");
   resultH->salvar();
   delete resultH;
 }
