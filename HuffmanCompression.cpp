@@ -180,9 +180,11 @@ float auxanalise(int N){
     fileout << "N: " << N << endl;
     HuffmanTree* a;
     for(int M=0;M<3;M++){
+        //cout << M << "a execucao" << endl;
         a = comprimir(N);
         float *est = descomprimir(a);
         taxa_de_comp = (est[0]-est[1])/est[0];
+        //cout << "Caracteres antes: " << est[0] << "; Caracteres depois: " << est[1] << endl << endl;
         fileout << M << ": Taxa de compressao = " << taxa_de_comp*100 << "%" << endl;
         med = med + taxa_de_comp;
     }
@@ -195,13 +197,13 @@ void analise(){
     ofstream file("saida.txt");
     file.close();
     float med=0;
-    med = med + auxanalise(10000);
+    /* med = med + auxanalise(10000);
     med = med + auxanalise(100000);
-    med = med + auxanalise(1000000);
+    med = med + auxanalise(1000000); */
 
-    /* med = med + auxanalise(10);
+    med = med + auxanalise(10);
     med = med + auxanalise(100);
-    med = med + auxanalise(1000); */
+    med = med + auxanalise(1000);
 
     med = med/3;
     ofstream fileout("saida.txt", ios_base::out | ios_base::app);

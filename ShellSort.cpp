@@ -8,7 +8,6 @@ using namespace std::chrono;
   
 void shellSort(Review* arr, int N)
 {
-    cout << N;
     for(int i = 0; i<8; i++){
         cout << arr[i].review_id << " " << arr[i].upvotes << endl;
     }

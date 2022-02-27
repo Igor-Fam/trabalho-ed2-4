@@ -63,7 +63,7 @@ void BTreePerformanceTest(int m) {
     int insertionComparisons[3];
     int searchComparisons[3];
     int insertionTimes[3];
-    int searchTimes[3];
+    long searchTimes[3];
     for (int M = 0; M < 3; M++) {
         BTree t(m);
         BNode::comparisons = 0;
@@ -100,16 +100,24 @@ void BTreePerformanceTest(int m) {
         cout << "100 registros importados com sucesso." << endl;
 
         //Buscar B = 100 registros
+
         auto searchStart = high_resolution_clock::now();
 
         cout << "Buscando 100 registros" << endl;
+        auto st = duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
+        volatile BNode* l;
         for (int i = 0; i < 100; i++) {
             t.search(regs[i]);
+            //l->getRegistry(regs[i].getId());
         }
+        auto stop = duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
+        auto dur = stop - st;
+        cout << dur << endl;
 
         auto searchStop = high_resolution_clock::now();
-        auto searchDuration = duration_cast<microseconds>(searchStop - searchStart);
-        searchTimes[M] = searchDuration.count();
+        duration<double, micro> searchDuration = searchStop - searchStart;
+        //cout << microseconds(searchStop-searchStart) << "ms" << endl;
+        searchTimes[M] = searchDuration.count(); 
 
         cout << "Comparacoes nas buscas: " << BNode::comparisons << endl;
         searchComparisons[M] = BNode::comparisons;

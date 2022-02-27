@@ -49,6 +49,10 @@ Review* importReviews(int N) {
         file.seekg(cursor, ios::beg);
         file.read(reinterpret_cast<char*>(&regs[i]), sizeof(Review));
         //cout << " (" << file.tellg() << ") " << regs[i].review_text << endl;
+        if((int)file.tellg() == -1){
+            file.close();
+            file.open("tiktok_app_reviews.bin");
+        }
     }
     file.close();
     return regs;
