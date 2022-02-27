@@ -9,51 +9,44 @@
 
 using namespace std;
 
-void trocaposH(Review *regs,int a, int b){
-    Review *aux = new Review;
-    *aux = regs[a];
-    regs[a] = regs[b];
-    regs[b] = *aux;
-    delete aux;
-}
 
-void heapify(int arr[], int n, int i,resultados *resultH)
+void heapify(int *upvts, int n, int i,resultados *resultH)
 {
-    int largest = i;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
+    int m = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
     resultH->addcomp();
-    if (l < n && arr[l] > arr[largest])
-        largest = l;
+    if (left < n && upvts[left] > upvts[m])
+        m = left;
     resultH->addcomp();
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
+    if (right < n && upvts[right] > upvts[m])
+        m = right;
   
-    if (largest != i) {
-        swap(arr[i], arr[largest]);
+    if (m != i) {
+        swap(upvts[i], upvts[m]);
         resultH->addmov();
-        heapify(arr, n, largest,resultH);
+        heapify(upvts, n, m,resultH);
     }
 }
 
-void heapSort(int arr[], int n, resultados *resultH)
+void heapSort(int *upvts, int n, resultados *resultH)
 {
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i,resultH);
+        heapify(upvts, n, i,resultH);
   
     for (int i = n - 1; i >= 0; i--) {
-        swap(arr[0], arr[i]);
+        swap(upvts[0], upvts[i]);
         resultH->addmov();
-        heapify(arr, i, 0,resultH);
+        heapify(upvts, i, 0,resultH);
     }
 }
 
-void StartHeapsort(int *arr, int n,int m){
+void StartHeapsort(int *upvts, int n,int m){
   string tipo="Heap";
   auto c = chrono::high_resolution_clock::now();
   resultados *resultH = new resultados;
   resultH->setresult(m+1);
-  heapSort(arr,n,resultH);
+  heapSort(upvts,n,resultH);
   auto f = chrono::high_resolution_clock::now();
   auto total = chrono::duration_cast<chrono::microseconds>(f-c);
   float tempo = total.count();

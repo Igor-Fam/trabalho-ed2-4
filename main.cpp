@@ -292,17 +292,14 @@ void analiseQuickSort(){
     int i,j,k;
     int *arr;
     for(i=0; i<5; i++){
-        cout << "i: " << i << endl;
         Review *regs = new Review[n[i]];
         for(j=0; j<3; j++){
-            cout << "j: " << j << endl;
             regs = importReviews(n[i]);
             arr = new int[n[i]];
             for(k=0;k<n[i];k++){
                 arr[k] = stoi(regs[k].upvotes);
             }
             StartQuicksort(arr,n[i],j);
-            cout << "end" << endl;
         }
         delete [] regs;
     }
@@ -313,10 +310,8 @@ void analiseHeapSort(){
     int i,j,k;
     int *arr;
     for(i=0; i<5; i++){
-        cout << "i: " << n[i] << endl;
         Review *regs = new Review[n[i]];
         for(j=0; j<3; j++){
-            cout << "j: " << j << endl;
             regs = importReviews(n[i]);
             arr = new int[n[i]];
             for(k=0;k<n[i];k++){
@@ -329,25 +324,40 @@ void analiseHeapSort(){
     }
 }
 
+void analiseShellSort(){
+    int n[5] = {10000, 50000, 100000, 500000, 1000000};
+    int i,j;
+    for(i=0;i<5;i++){
+        Review *regs = new Review[n[i]];
+        for(j=0;j<3;j++){
+            regs = importReviews(n[i]);
+            shellSort(regs, n[i]);
+        }
+        delete [] regs;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     path = argv[1];
-    //analiseQuickSort();
-    //analiseHeapSort();
-    
-    
-    /* int n = 500000;
-    int i;
-    int *arr;
-    Review *regs = new Review[n];
-    regs = importReviews(n);
-    arr = new int[n];
-    for(i=0;i<n;i++){
-        arr[i] = stoi(regs[i].upvotes);
-    }
-    StartQuicksort(arr,n,0);
-    delete [] arr;
-    delete [] regs; */
 
+    cout << "----------" << endl;
+    cout<< "Escolha qual analise de ordenacao: " << endl;
+    cout << "(1) Analise QuickSort" << endl;
+    cout << "(2) Analise HeapSort" << endl;
+    cout << "(3) Analise ShellSort" << endl;
+    int option;
+    cin >> option;
+    switch(option){
+        case 1:
+            analiseQuickSort();
+            break;
+        case 2:
+            analiseHeapSort();
+            break;
+        case 3:
+            analiseShellSort();
+            break;
+    }
     return 0;
 }

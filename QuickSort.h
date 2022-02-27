@@ -9,46 +9,49 @@
 
 using namespace std;
 
-int media_3(int *arr, int i, int f){
-    int meio = (i+f)/2;
-    if(arr[i] > arr[f])
-        swap(arr[i], arr[f]);
-    if(arr[meio] > arr[f])
-        swap(arr[meio], arr[f]);
-    if(arr[i] > arr[meio])
-        swap(arr[i], arr[meio]);
-    swap(arr[meio], arr[f]);
-    return arr[f];
+int media_3(int *upvts, int i, int f){
+    int m = (i+f)/2;
+    if(upvts[i] > upvts[f]){
+        swap(upvts[i], upvts[f]);
+    }
+    if(upvts[m] > upvts[f]){
+        swap(upvts[m], upvts[f]);
+    }
+    if(upvts[i] > upvts[m]){
+        swap(upvts[i], upvts[m]);
+    }
+    swap(upvts[m], upvts[f]);
+    return upvts[f];
 }
 
-int partition(int arr[], int start, int end,resultados *resultQ)
+int partquick(int upvts[], int c, int n,resultados *resultQ)
 {
-    int pivot = media_3(arr,start,end);
+    int pivot = media_3(upvts,c,n);
     int count = 0;
-    for (int i = start + 1; i <= end; i++) {
-        if (arr[i] <= pivot){
+    for (int i = c + 1; i <= n; i++) {
+        if (upvts[i] <= pivot){
             count++;
             resultQ->addcomp();
         }
     }
-    int pivotIndex = start + count;
-    swap(arr[pivotIndex], arr[start]);
+    int pivotIndex = c + count;
+    swap(upvts[pivotIndex], upvts[c]);
     resultQ->addmov();
-    int i = start, j = end;
+    int i = c, j = n;
     resultQ->addcomp();
     while (i < pivotIndex && j > pivotIndex) {
         resultQ->addcomp();
-        while (arr[i] <= pivot) {
+        while(upvts[i] <= pivot) {
             i++;
         }
         resultQ->addcomp();
-        while (arr[j] > pivot) {
+        while(upvts[j] > pivot) {
             resultQ->addcomp();
             j--;
         }
         resultQ->addcomp();
-        if (i < pivotIndex && j > pivotIndex) {
-            swap(arr[i++], arr[j--]);
+        if(i < pivotIndex && j > pivotIndex) {
+            swap(upvts[i++], upvts[j--]);
             resultQ->addmov();
         }
     }
@@ -56,20 +59,20 @@ int partition(int arr[], int start, int end,resultados *resultQ)
     return pivotIndex;
 }
  
-void QuickSort(int arr[], int start, int end,resultados *resultQ)
+void QuickSort(int upvts[], int c, int n,resultados *resultQ)
 {
-    if (start >= end)
-        return;
-    int p = partition(arr, start, end,resultQ);
-    QuickSort(arr, start, p - 1,resultQ);
-    QuickSort(arr, p + 1, end,resultQ);
+    if (n-c>0){
+    int p = partquick(upvts, c, n,resultQ);
+    QuickSort(upvts, c, p - 1,resultQ);
+    QuickSort(upvts, p + 1, n,resultQ);
+    }
 }
 
-void StartQuicksort(int *arr,int r, int m){
+void StartQuicksort(int *upvts,int r, int m){
   resultados *resultQ = new resultados;
   resultQ->setresult(m+1);
   auto c = chrono::high_resolution_clock::now();
-  QuickSort(arr,0,r-1,resultQ);
+  QuickSort(upvts,0,r-1,resultQ);
   auto f = chrono::high_resolution_clock::now();
   auto total = chrono::duration_cast<chrono::milliseconds>(f-c);
   float tempo = total.count();
