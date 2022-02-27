@@ -40,7 +40,7 @@ Review* importReviews(int N) {
     file.seekg(0, ios::end);
     int max = (file.tellg() / sizeof(Review)) - 1;
     // aloca um numero N de ponteiros de Review para os registros
-    Review* regs = new Review[N];
+    Review *regs = new Review[N];
     srand(time(0));
     for (int i = 0; i < N; i++) {
         // registros aleatorios

@@ -8,9 +8,12 @@ using namespace std::chrono;
   
 void shellSort(Review* arr, int N)
 {
+<<<<<<< HEAD
     for(int i = 0; i<8; i++){
         cout << arr[i].review_id << " " << arr[i].upvotes << endl;
     }
+=======
+>>>>>>> 2c3bc2161a51ef779dd1ea83a7b9ee2ae5aac918
     auto c = high_resolution_clock::now();
     resultados r;
     for (int gap = N/2; gap > 0; gap /= 2) {
@@ -32,8 +35,5 @@ void shellSort(Review* arr, int N)
     r.tempo = tempo;
     r.tipo = "ShellSort";
     r.salvar();
-    cout << "\nArray after shell sort: \n";
-    for (int i=0; i<N; i++)
-        cout << arr[i].review_id << " " << arr[i].upvotes << endl;
     return;
 }
