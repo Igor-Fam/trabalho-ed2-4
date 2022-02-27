@@ -28,6 +28,7 @@ void shellSort(Review* arr, int N)
     float tempo = total.count();
     r.tempo = tempo;
     r.tipo = "ShellSort";
+    r.tam = N;
     r.salvar();
     return;
 }

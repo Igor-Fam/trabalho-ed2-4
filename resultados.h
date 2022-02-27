@@ -11,18 +11,18 @@ class resultados{
         int movimentos;
         int comparacoes;
         float tempo;
-        int id;
+        int tam;
         string tipo;
 
         resultados(){
-            movimentos = 0, comparacoes = 0, tempo = 0, id = 0;
+            movimentos = 0, comparacoes = 0, tempo = 0;
         }
         
         void salvar(){
             ofstream saida;
             saida.open("saida.txt", fstream::app);
             saida << tipo << endl;
-            saida << "M: " << id << endl;
+            saida << "N = " << tam << endl;
             saida << "Movimentos: " << movimentos << endl;
             saida << "Comparacoes: " << comparacoes << endl;
             saida << "Tempo em milissegundos: " << tempo << endl << endl;
@@ -30,10 +30,10 @@ class resultados{
         }
 
         void setresult(int m){
+            tam = m;
             movimentos=0;
             comparacoes=0;
             tempo=0;
-            id=m;
         }
 
         void addmov(){

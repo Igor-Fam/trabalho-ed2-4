@@ -41,11 +41,11 @@ void heapSort(int *upvts, int n, resultados *resultH)
     }
 }
 
-void StartHeapsort(int *upvts, int n,int m){
+void StartHeapsort(int *upvts, int n){
   string tipo="Heap";
   auto c = chrono::high_resolution_clock::now();
   resultados *resultH = new resultados;
-  resultH->setresult(m+1);
+  resultH->setresult(n);
   heapSort(upvts,n,resultH);
   auto f = chrono::high_resolution_clock::now();
   auto total = chrono::duration_cast<chrono::microseconds>(f-c);

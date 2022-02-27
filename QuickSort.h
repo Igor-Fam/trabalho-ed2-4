@@ -53,9 +53,9 @@ void QuickSort(int upvts[], int c, int n,resultados *resultQ)
     }
 }
 
-void StartQuicksort(int *upvts,int r, int m){
+void StartQuicksort(int *upvts,int r){
   resultados *resultQ = new resultados;
-  resultQ->setresult(m+1);
+  resultQ->setresult(r);
   auto c = chrono::high_resolution_clock::now();
   QuickSort(upvts,0,r-1,resultQ);
   auto f = chrono::high_resolution_clock::now();

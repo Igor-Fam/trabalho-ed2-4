@@ -15,7 +15,7 @@ void analiseQuickSort(){
             for(k=0;k<n[i];k++){
                 arr[k] = stoi(regs[k].upvotes);
             }
-            StartQuicksort(arr,n[i],j);
+            StartQuicksort(arr,n[i]);
         }
         delete [] regs;
     }
@@ -33,7 +33,7 @@ void analiseHeapSort(){
             for(k=0;k<n[i];k++){
                 arr[k] = stoi(regs[k].upvotes);
             }
-            StartHeapsort(arr,n[i],j);
+            StartHeapsort(arr,n[i]);
             delete [] arr;
         }
         delete [] regs;
